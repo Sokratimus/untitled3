@@ -8,11 +8,14 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Thread)
+@Warmup(iterations = 2, time = 1, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
+@Fork(1)
 public class StreamBenchmark {
 
     private List<Integer> data;
 
-    @Setup(Level.Invocation)
+    @Setup(Level.Trial)
     public void setup() {
         data = DataGenerator.generateData(10_000_000);
     }
